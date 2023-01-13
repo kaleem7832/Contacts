@@ -1,8 +1,10 @@
+import { Outlet, NavLink } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand">
           <img
             src="https://www.iresearchservices.com/wp-content/themes/iResearch/img/iresearchLogoLight.svg"
             width="120px"
@@ -22,37 +24,20 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <NavLink to="/" className="nav-link">
                 Home
-              </a>
+              </NavLink>
             </li>
 
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Add contact
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Add Contact
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Import Contacts
-                  </a>
-                </li>
-              </ul>
+            <li className="nav-item">
+              <NavLink to="/add" className="nav-link">
+                Add Contact
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/import" className="nav-link">
+                Import Contacts
+              </NavLink>
             </li>
           </ul>
           <form className="d-flex">
