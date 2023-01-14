@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import { useHistory } from "react-router-dom";
 
 import axios from "axios";
@@ -15,9 +19,8 @@ const AddContact = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log({ name });
     axios
-      .post("http://localhost:4001/login", {
+      .post("http://localhost:4000/contacts", {
         name,
         email,
         phone,
@@ -26,9 +29,22 @@ const AddContact = () => {
         designation,
         city,
       })
-      .then((response) => {})
+      .then((response) => {
+        console.log(response);
+        toast("Contact added");
+      })
       .catch(function (error) {
         console.log("error", error);
+        toast.error("There was error adding the contact", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       });
   };
 
@@ -126,6 +142,7 @@ const AddContact = () => {
             />
           </div>
         </div>
+        <ToastContainer />
       </div>
     </form>
   );

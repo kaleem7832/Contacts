@@ -1,7 +1,8 @@
 const ImportContacts = () => {
   return (
     <div>
-      <h3>You can bulk upload contacts with an excel or CSV file</h3>
+      <h3>Import Contacts</h3>
+      <hr />
       <p>
         Bulk importing data is a process of loading large amounts of data into a
         database in a single operation. It is usually used to rapidly transfer
