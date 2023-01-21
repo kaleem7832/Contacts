@@ -11,12 +11,44 @@ contactRouter.use(bodyParser.json());
 contactRouter
   .route("/")
   .get((req, res, next) => {
-    Contacts.find({})
+    const { start, size, filters, sorting, globalFilter } = req.query;
+
+    Contacts.find({
+      $or: [
+        { name: { $regex: globalFilter } },
+        { designation: { $regex: globalFilter } },
+        { email: { $regex: globalFilter } },
+        { country: { $regex: globalFilter } },
+        { company: { $regex: globalFilter } },
+        { city: { $regex: globalFilter } },
+        { phone: { $regex: globalFilter } },
+      ],
+    })
+
       .then(
         (Contacts) => {
+          const parsedColumnFilters = JSON.parse(filters);
+          if (!!parsedColumnFilters?.length) {
+            parsedColumnFilters.map((filter) => {
+              const { id: columnId, value: filterValue } = filter;
+              Contacts = Contacts.filter((row) => {
+                return row[columnId]
+                  ?.toString()
+                  ?.toLowerCase()
+                  ?.includes?.(filterValue.toLowerCase());
+              });
+            });
+          }
           res.statusCode = 200;
           res.setHeader("Content-type", "application/json");
-          res.json(Contacts);
+          res.json({
+            data:
+              Contacts?.slice(
+                parseInt(start),
+                parseInt(start) + parseInt(size)
+              ) ?? [],
+            meta: { totalRowCount: Contacts.length },
+          });
         },
         (err) => next(err)
       )

@@ -37,4 +37,14 @@ const contactSchema = new Schema(
     timestamps: true,
   }
 );
+
+contactSchema.index({
+  name: "text",
+  designation: "text",
+  email: "text",
+  country: "text",
+  company: "text",
+  city: "text",
+  phone: "text",
+});
 module.exports = mongoose.model("Contacts", contactSchema);
