@@ -24,6 +24,7 @@ contactRouter
         { phone: { $regex: globalFilter } },
       ],
     })
+      .select(["-createdAt", "-updatedAt", "-__v"])
 
       .then(
         (Contacts) => {

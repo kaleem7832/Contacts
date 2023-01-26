@@ -12,6 +12,10 @@ import { Box, Button } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import { ExportToCsv } from "export-to-csv"; //or use your library of choice here
 
 import axios from "axios";
@@ -137,19 +141,26 @@ const AllContacts = () => {
     if (cnf) {
       var ids = [];
       rows.map((r) => ids.push(r.id));
-      console.log(ids);
       axios
         .delete("http://localhost:4000/contacts", {
           data: {
             ids: ids,
           },
         })
-        .then(() => setRefresh(new Date()));
+        .then(() => {
+          setRefresh(new Date());
+          toast(rows.length + " Contact deleted successfuly!");
+        });
     }
   };
 
   const handleExportData = () => {
-    csvExporter.generateCsv(data);
+    var csv = data;
+    csv.map((c) => {
+      delete c._id;
+    });
+
+    csvExporter.generateCsv(csv);
   };
 
   return (
@@ -223,6 +234,7 @@ const AllContacts = () => {
           </Box>
         )}
       />
+      <ToastContainer />
     </>
   );
 };

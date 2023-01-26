@@ -30,7 +30,13 @@ const AddContact = () => {
         city,
       })
       .then((response) => {
-        console.log(response);
+        setCity("");
+        setName("");
+        setCompany("");
+        setCountry("");
+        setDesignation("");
+        setPhone("");
+        setEmail("");
         toast("Contact added");
       })
       .catch(function (error) {
