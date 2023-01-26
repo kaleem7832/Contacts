@@ -72,16 +72,34 @@ contactRouter
     res.end("Put request not supported on /Contacts");
   })
   .delete((req, res, next) => {
-    Contacts.remove({})
-      .then(
-        (res) => {
-          res.statusCode = 200;
-          res.setHeader("Content-type", "application/json");
-          res.json(res);
+    Contacts.deleteMany(
+      {
+        _id: {
+          $in: req.body.ids,
         },
-        (err) => next(err)
-      )
-      .catch((err) => next(err));
+      },
+      function (err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(result);
+        }
+      }
+    );
+    // Contacts.deleteMany({
+    //   _id: {
+    //     $in: req.body.ids,
+    //   },
+    // })
+    //   .then(
+    //     (res) => {
+    //       res.statusCode = 200;
+    //       res.setHeader("Content-type", "application/json");
+    //       res.json(res);
+    //     },
+    //     (err) => next(err)
+    //   )
+    //   .catch((err) => next(err));
   });
 
 contactRouter

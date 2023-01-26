@@ -10,6 +10,8 @@ import MaterialReactTable from "material-react-table";
 
 import { Box, Button } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import { ExportToCsv } from "export-to-csv"; //or use your library of choice here
 
 import axios from "axios";
@@ -20,7 +22,7 @@ const AllContacts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
   const [rowCount, setRowCount] = useState(0);
-
+  const [refresh, setRefresh] = useState("");
   //table state
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -39,8 +41,8 @@ const AllContacts = () => {
 
     {
       accessorKey: "designation",
-      header: "designation",
-      size: 150,
+      header: "Designation",
+      size: 120,
     },
     {
       accessorKey: "email",
@@ -127,10 +129,23 @@ const AllContacts = () => {
     pagination.pageIndex,
     pagination.pageSize,
     sorting,
+    refresh,
   ]);
 
-  const handleExportRows = (rows) => {
-    csvExporter.generateCsv(rows.map((row) => row.original));
+  const handleDeleteRows = (rows) => {
+    var cnf = window.confirm("Do you want to delete " + rows.length + " rows?");
+    if (cnf) {
+      var ids = [];
+      rows.map((r) => ids.push(r.id));
+      console.log(ids);
+      axios
+        .delete("http://localhost:4000/contacts", {
+          data: {
+            ids: ids,
+          },
+        })
+        .then(() => setRefresh(new Date()));
+    }
   };
 
   const handleExportData = () => {
@@ -172,6 +187,41 @@ const AllContacts = () => {
           showProgressBars: isRefetching,
           sorting,
         }}
+        muiTableBodyRowProps={({ row }) => ({
+          onClick: (event) => {
+            console.info(event, row.id);
+          },
+          sx: {
+            cursor: "pointer", //you might want to change the cursor too when adding an onClick
+          },
+        })}
+        renderTopToolbarCustomActions={({ table }) => (
+          <Box
+            sx={{ display: "flex", gap: "1rem", p: "0.5rem", flexWrap: "wrap" }}
+          >
+            <Button
+              color="primary"
+              //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+              onClick={handleExportData}
+              startIcon={<FileDownloadIcon />}
+              variant="contained"
+            >
+              Export
+            </Button>
+
+            <Button
+              disabled={
+                !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+              }
+              //only export selected rows
+              onClick={() => handleDeleteRows(table.getSelectedRowModel().rows)}
+              startIcon={<DeleteIcon />}
+              variant="contained"
+            >
+              Delete
+            </Button>
+          </Box>
+        )}
       />
     </>
   );
