@@ -14,7 +14,8 @@ const AddContact = () => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [company, setCompany] = useState("");
-  const [city, setCity] = useState("");
+  const [size, setSize] = useState("");
+  const [industry, setIndustry] = useState("");
   const [designation, setDesignation] = useState("");
 
   const onSubmit = (e) => {
@@ -27,16 +28,18 @@ const AddContact = () => {
         country,
         company,
         designation,
-        city,
+        size,
+        industry,
       })
       .then((response) => {
-        setCity("");
+        setSize("");
         setName("");
         setCompany("");
         setCountry("");
         setDesignation("");
         setPhone("");
         setEmail("");
+        setIndustry("");
         toast("Contact added");
       })
       .catch(function (error) {
@@ -98,12 +101,23 @@ const AddContact = () => {
             <input
               type="text"
               className="form-control"
-              id="city"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              id="size"
+              placeholder="Size"
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
             />
-            <label htmlFor="city">City</label>
+            <label htmlFor="size">Size</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="industry"
+              placeholder="Industry"
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+            />
+            <label htmlFor="industry">Industry</label>
           </div>
         </div>
         <div className="col-md-6">

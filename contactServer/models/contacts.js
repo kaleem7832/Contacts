@@ -12,7 +12,7 @@ const contactSchema = new Schema(
       type: String,
       required: true,
     },
-    email: {
+    company: {
       type: String,
       required: true,
     },
@@ -20,11 +20,15 @@ const contactSchema = new Schema(
       type: String,
       required: true,
     },
-    company: {
+    industry: {
       type: String,
       required: true,
     },
-    city: {
+    size: {
+      type: String,
+      required: true,
+    },
+    email: {
       type: String,
       required: true,
     },

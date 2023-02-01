@@ -38,7 +38,8 @@ const AllContacts = () => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [company, setCompany] = useState("");
-  const [city, setCity] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [size, setSize] = useState("");
   const [id, setId] = useState("");
   const [designation, setDesignation] = useState("");
 
@@ -64,9 +65,9 @@ const AllContacts = () => {
       size: 120,
     },
     {
-      accessorKey: "email",
-      header: "Email",
-      size: 220,
+      accessorKey: "company",
+      header: "Company",
+      size: 120,
     },
     {
       accessorKey: "country",
@@ -74,14 +75,20 @@ const AllContacts = () => {
       size: 120,
     },
     {
-      accessorKey: "company",
-      header: "Company",
+      accessorKey: "industry",
+      header: "Industry",
+      size: 120,
+    },
+
+    {
+      accessorKey: "size",
+      header: "Size",
       size: 120,
     },
     {
-      accessorKey: "city",
-      header: "City",
-      size: 120,
+      accessorKey: "email",
+      header: "Email",
+      size: 220,
     },
     {
       accessorKey: "phone",
@@ -109,11 +116,12 @@ const AllContacts = () => {
         phone,
         country,
         company,
+        industry,
         designation,
-        city,
+        size,
       })
       .then((response) => {
-        setCity("");
+        setSize("");
         setName("");
         setCompany("");
         setCountry("");
@@ -257,8 +265,9 @@ const AllContacts = () => {
         }}
         muiTableBodyRowProps={({ row }) => ({
           onClick: (event) => {
-            setCity(row._valuesCache.city);
+            setSize(row._valuesCache.size);
             setName(row._valuesCache.name);
+            setIndustry(row._valuesCache.industry);
             setCompany(row._valuesCache.company);
             setCountry(row._valuesCache.country);
             setDesignation(row._valuesCache.designation);
@@ -346,12 +355,23 @@ const AllContacts = () => {
                 <input
                   type="text"
                   className="form-control"
-                  id="city"
-                  placeholder="City"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  id="size"
+                  placeholder="Size"
+                  value={size}
+                  onChange={(e) => setSize(e.target.value)}
                 />
-                <label htmlFor="city">City</label>
+                <label htmlFor="size">Size</label>
+              </div>
+              <div className="form-floating mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="industry"
+                  placeholder="Industry"
+                  value={industry}
+                  onChange={(e) => setIndustry(e.target.value)}
+                />
+                <label htmlFor="industry">Industry</label>
               </div>
             </div>
             <div className="col-md-6">
@@ -388,20 +408,21 @@ const AllContacts = () => {
                 />
                 <label htmlFor="country">Country</label>
               </div>
-              <div className="form-floating d-flex justify-content-between mb-3">
+              <div className="form-floating mb-3">
+                <input
+                  type="submit"
+                  className="btn btn-warning  p-3 w-100"
+                  value={"Update"}
+                />
+              </div>
+              <div className="form-floating mb-3">
                 <button
                   type="submit"
-                  className="btn btn-outline-warning p-3 col"
+                  className="btn btn-outline-warning p-3 w-100"
                   onClick={closeModal}
-                  style={{ marginRight: 10 }}
                 >
                   Cancel
                 </button>
-                <input
-                  type="submit"
-                  className="btn btn-warning  p-3 col"
-                  value={"Update"}
-                />
               </div>
             </div>
           </div>

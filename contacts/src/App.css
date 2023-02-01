@@ -12,3 +12,21 @@
 footer{
     border-bottom: 5px solid #ffbc00;
 }
+
+.dailog{
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border:none;
+    top:0;
+    left: 0;
+    overflow-y: hidden;
+    margin: 0;
+}
+.dailog form{
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding:15px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 15px #ccc;
+}
