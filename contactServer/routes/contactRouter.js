@@ -20,7 +20,8 @@ contactRouter
         { email: { $regex: globalFilter } },
         { country: { $regex: globalFilter } },
         { company: { $regex: globalFilter } },
-        { city: { $regex: globalFilter } },
+        { industry: { $regex: globalFilter } },
+        { size: { $regex: globalFilter } },
         { phone: { $regex: globalFilter } },
       ],
     })
