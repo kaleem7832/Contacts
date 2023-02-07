@@ -110,7 +110,7 @@ const AllContacts = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:4000/contacts/" + id, {
+      .put("https://contacts-my76.onrender.com/contacts/" + id, {
         name,
         email,
         phone,
@@ -165,7 +165,7 @@ const AllContacts = () => {
         "/contacts",
         process.env.NODE_ENV === "production"
           ? "https://www.material-react-table.com"
-          : "http://localhost:4000"
+          : "https://contacts-my76.onrender.com"
       );
       url.searchParams.set(
         "start",
@@ -207,7 +207,7 @@ const AllContacts = () => {
       var ids = [];
       rows.map((r) => ids.push(r.id));
       axios
-        .delete("http://localhost:4000/contacts", {
+        .delete("https://contacts-my76.onrender.com/contacts", {
           data: {
             ids: ids,
           },

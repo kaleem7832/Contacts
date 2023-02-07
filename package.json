@@ -1,9 +1,7 @@
 {
   "scripts": {
-    "start": "cd contacts && npm start",
-    "server": "cd contactServer && node ./bin/www",
-    "client": "cd contacts && npm start --prefix contacts",
-    "clientinstall": "npm install --prefix contacts",
+    "start": "npm start",
+    "server": "node ./bin/www",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "render-postbuild": "NPM_CONFIG_PRODUCTION=false cd contacts && npm install --prefix contacts && npm run build -- prefix contacts"
   },

@@ -21,7 +21,7 @@ const AddContact = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:4000/contacts", {
+      .post("https://contacts-my76.onrender.com/contacts", {
         name,
         email,
         phone,
